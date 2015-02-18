@@ -43,11 +43,20 @@ RUN apt-get -y update && \
 # Configure the Databse
 RUN apt-get -y install \
 	mariadb-server \
-	python-mysqldb 
-RUN service mysql restart
+	python-mysqldb
 
 # Install RabbitMQ
 RUN apt-get -y install rabbitmq-server && \
 	service rabbitmq-server start && \
 	rabbitmqctl change_password guest $RABBIT_PASS
+
+#################################
+## 3. Add the Identity Service ##
+#################################
+
+# Add Startup File
+ADD setup.sh /start.sh
+RUN chmod a+x start.sh
+CMD bash -C "/start.sh"; "bash"
+
 
