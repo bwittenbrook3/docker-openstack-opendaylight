@@ -1,0 +1,16 @@
+mysql:
+    image: mysql:latest
+    environment:
+        MYSQL_ROOT_PASSWORD: password
+rabbitmq:
+    image: rabbitmq:latest
+keystone:
+    build: ./keystone
+    ports:
+        - "35357"
+    links:
+        - mysql
+        - rabbitmq
+    environment:
+        MYSQL_ROOT_PASSWORD: password
+
