@@ -34,9 +34,6 @@ rm -f /var/lib/keystone/keystone.db
 (crontab -l -u keystone 2>&1 | grep -q token_flush) || \
   echo '@hourly /usr/bin/keystone-manage token_flush >/var/log/keystone/keystone-tokenflush.log 2>&1' \
   >> /var/spool/cron/crontabs/keystone
-
-# Start the Keystone Service
-keystone-all &
 log_end_msg 0
-wait 10
-keystone discover
+# Start the Keystone Service
+exec keystone-all

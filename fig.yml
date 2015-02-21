@@ -13,4 +13,10 @@ keystone:
         - rabbitmq
     environment:
         MYSQL_ROOT_PASSWORD: password
+horizon:
+    build: ./horizon
+    ports:
+        - "80"
+    links:
+        - keystone
 
